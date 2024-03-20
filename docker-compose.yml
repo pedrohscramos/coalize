@@ -1,0 +1,49 @@
+version: '2'
+mysql:
+    build: 
+      context: .
+      dockerfile: Dockerfile.mysql
+    restart: always
+    container_name: mysql_coalize
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASSWORD: coalize
+      MYSQL_USER: coalize
+      MYSQL_PASSWORD: coalize
+    networks:
+      my_network:
+        ipv4_address: 128.0.0.2
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./dbUser.sql:/docker-entrypoint-initdb.d/dbUser.sql
+  
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: php_coalize
+    networks:
+      my_network:
+        ipv4_address: 128.0.0.3
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+    command: bash -c "sleep 5; php yii migrate --interactive=0 ; php yii serve 0.0.0.0"
+
+  
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 128.0.0.0/16
+
+volumes:
+  mysql_data:
