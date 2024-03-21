@@ -13,7 +13,21 @@ git clone https://github.com/pedrohscramos/coalize.git
 
 docker-compose up -d
 
+2. No seu terminal execute o comando para identificar o ID do container PHP
+
+docker container ls
+
+3. Com o ID em mãos, execute o comando para acessar o bash do container
+
+docker exec -it <container_id> bash
+
+4. Já dentro do bash do container, execute o comando para criar Novo usuário e senha. O retorno será uma mensagem de sucesso e um access_token que será utilizado para autorizar as chamadas das rotas da API
+
+php yii user/create
+
 ## Especificções
+
+O acesso às rotas será através do endereço http://localhos:8080/<nome_da_rota>
 
 ### Rotas de acesso
 
@@ -25,7 +39,7 @@ docker-compose up -d
   - Campos exigidos(nome, cpf, cep, logradouro, numero, cidade, estado, complemento, foto, sexo)
 - POST produtos/por-cliente - Busca produtos pelo nome do cliente
   - Campo esperado no post(nome)
-- GET produtos/por-cliente-id/:num - Busca produtos pelo id do cliente
+- GET produtos/por-cliente-id/:num - Busca produtos pelo id do cliente(onde :num é o id do cliente)
 
 ### Comando personalizado
 
