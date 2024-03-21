@@ -9,19 +9,19 @@ Este é um projeto de teste da Coalize.
 
 git clone https://github.com/pedrohscramos/coalize.git
 
-1. Entre na pasta do projeto no seu terminal e rode o comando 
+3. Entre na pasta do projeto no seu terminal e rode o comando 
 
 docker-compose up -d
 
-2. No seu terminal execute o comando para identificar o ID do container PHP
+4. No seu terminal execute o comando para identificar o ID do container PHP
 
 docker container ls
 
-3. Com o ID em mãos, execute o comando para acessar o bash do container
+5. Com o ID em mãos, execute o comando para acessar o bash do container
 
 docker exec -it <container_id> bash
 
-4. Já dentro do bash do container, execute o comando para criar Novo usuário e senha. O retorno será uma mensagem de sucesso e um access_token que será utilizado para autorizar as chamadas das rotas da API
+6. Já dentro do bash do container, execute o comando para criar Novo usuário e senha. O retorno será uma mensagem de sucesso e um access_token que será utilizado para autorizar as chamadas das rotas da API
 
 php yii user/create
 
